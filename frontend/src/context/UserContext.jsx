@@ -3,7 +3,7 @@ import axios from "axios";
 import { userDataContext } from "./userDataContext.jsx";
 
 const UserContext = ({ children }) => {
-  const serverUrl = "https://virtual-assistant-backend-nmp3.onrender.com";
+  const serverUrl = "https://virtual-assistant-b-i5l0.onrender.com";
   const [userData, setUserData] = useState(null);
   const [selectedImage, setSelectedImage] = useState(
     localStorage.getItem("selectedImage") || ""
