@@ -32,6 +32,7 @@ export const signUp = async (req, res) => {
     if (emailExists) {
       return res.status(409).json({ message: "Email already exists" });
     }
+    const user = await User.findOne({ email: normalizedEmail });
 
     const hash = await bcrypt.hash(password, 10);
     await User.create({
