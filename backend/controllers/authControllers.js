@@ -40,8 +40,13 @@ export const signUp = async (req, res) => {
       password: hash,
     });
 
-    // The frontend sends the user to sign-in after registration,
-    // so signup should not authenticate the session.
+    const token = await jwtTokenGenerator(user._id);
+    res.cookie("token", token, {
+      httpOnly: true,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      sameSite: "None",
+      secure: true,
+    });
     return res.status(201).json(null);
   } catch (err) {
     return res.status(500).json({ message: `SignUp error : ${err.message}` });
@@ -74,8 +79,8 @@ export const Login = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: 7 * 24 * 60 * 60 * 1000,
-      sameSite: "strict",
-      secure: false,
+      sameSite: "None",
+      secure: true,
     });
 
     const safeUser = user.toObject();
